@@ -28,6 +28,9 @@ public class Main extends Application {
 	static final int INIT_X = 0;
 	static final int INIT_Y = 0;	
 	static final int DIST = 20;
+	static final int FIN_X = 700;
+	static final int FIN_Y = 300;
+	static final int MARGIN = 20;
 	
 	static boolean good = true;
 	
@@ -70,15 +73,13 @@ public class Main extends Application {
         G.add(init);
         
         for(int i = 0; i<SIZE; i++){
-        	Node rand = getRandomNode(k);
+        	Node rand = getRandomNode(k++);
         	Node nearest = getNearestNode(rand);
         	rand.setPrev(nearest);
         	nearest.setNext(rand);
-        	
         	Line2D line = new Line2D.Double(rand.x, rand.y, nearest.x, nearest.y);
        	
-        	
-        	for(Obstacle o : obs){
+           	for(Obstacle o : obs){
         		if(line.ptSegDist(new Point2D.Double(o.x, o.y)) <= o.radius){
         			good = false;
         		}
@@ -87,6 +88,21 @@ public class Main extends Application {
     			G.add(rand);
             	gc.strokeLine(rand.x, rand.y, nearest.x, nearest.y);
     		}
+        	if(line.ptSegDist(Main.FIN_X, Main.FIN_Y) <=Main.MARGIN && good){
+        		gc.setStroke(Color.RED);
+        		gc.setLineWidth(2);
+        		Node current = rand;
+        		Node previous;
+        		while(current.n != 0){
+        			System.out.println(current);
+        			previous = current.prev;
+        			gc.strokeLine(previous.x, previous.y, current.x, current.y);
+        			current = previous;
+        		}
+        		gc.setStroke(Color.BLUE);
+        		gc.setLineWidth(1);
+        	}
+        	
         	good = true;
         }
         
