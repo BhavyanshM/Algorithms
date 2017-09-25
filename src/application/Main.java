@@ -1,6 +1,9 @@
 package application;
 	
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
+
+import java.awt.geom.Line2D;
 
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -13,14 +16,20 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 	
-	static final int DIM_X = 1000;
-	static final int DIM_Y = 700;
-	static final boolean REACHED = false;
 	static final int SIZE = 20000;
+	
+	static final int DIM_X = 800;
+	static final int DIM_Y = 600;
+	static final boolean REACHED = false;
+		
 	static ArrayList<Node> G = new ArrayList<Node>();
-	static final int INIT_X = 200;
-	static final int INIT_Y = 200;	
+	static ArrayList<Obstacle> obs = new ArrayList<Obstacle>();
+	
+	static final int INIT_X = 0;
+	static final int INIT_Y = 0;	
 	static final int DIST = 20;
+	
+	static boolean good = true;
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -31,6 +40,9 @@ public class Main extends Application {
 			Canvas canvas = new Canvas(DIM_X,DIM_Y);
 			
 			GraphicsContext gc = canvas.getGraphicsContext2D();
+			
+			addObstacles();
+			
 			RRT(gc);
 			
 			root.getChildren().add(canvas);
@@ -39,6 +51,12 @@ public class Main extends Application {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void addObstacles(){
+		obs.add(new Obstacle(500, 100, 80));
+		obs.add(new Obstacle(200, 400, 150));
+		obs.add(new Obstacle(600, 450, 100));
 	}
 	
 	public void RRT(GraphicsContext gc){
@@ -56,8 +74,20 @@ public class Main extends Application {
         	Node nearest = getNearestNode(rand);
         	rand.setPrev(nearest);
         	nearest.setNext(rand);
-        	G.add(rand);
-        	gc.strokeLine(rand.x, rand.y, nearest.x, nearest.y);
+        	
+        	Line2D line = new Line2D.Double(rand.x, rand.y, nearest.x, nearest.y);
+       	
+        	
+        	for(Obstacle o : obs){
+        		if(line.ptSegDist(new Point2D.Double(o.x, o.y)) <= o.radius){
+        			good = false;
+        		}
+        	}
+        	if(good==true){
+    			G.add(rand);
+            	gc.strokeLine(rand.x, rand.y, nearest.x, nearest.y);
+    		}
+        	good = true;
         }
         
 	}
@@ -119,5 +149,30 @@ public class Main extends Application {
 		public String toString(){
 			return "(" + this.x + ", " + this.y + ")"; 
 		}
+	}
+	
+	static class Obstacle{
+		int x;
+		int y;
+		int radius;
+		
+		public Obstacle(int x, int y, int r){
+			this.x = x;
+			this.y = y;
+			this.radius = r;
+		}
+		
+		public int getX() {
+			return x;
+		}
+		public int getY() {
+			return y;
+		}
+		public int getRadius() {
+			return radius;
+		}
+		public void setRadius(int radius) {
+			this.radius = radius;
+		}		
 	}
 }
