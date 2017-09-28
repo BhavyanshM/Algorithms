@@ -20,6 +20,9 @@ public class Main extends Application {
 	
 	static final int DIM_X = 800;
 	static final int DIM_Y = 600;
+	static final int DEL_RATIO = 10;
+//	static final int DEL = (int)(Math.sqrt(DIM_X*DIM_X + DIM_Y*DIM_Y)/DEL_RATIO);
+	static final int DEL = 1200;
 	static final boolean REACHED = false;
 		
 	static ArrayList<Node> G = new ArrayList<Node>();
@@ -56,6 +59,10 @@ public class Main extends Application {
 		}
 	}
 	
+	public void avoid(GraphicsContext gc){
+		
+	}
+	
 	public void addObstacles(){
 		obs.add(new Obstacle(500, 100, 80));
 		obs.add(new Obstacle(200, 400, 150));
@@ -73,11 +80,18 @@ public class Main extends Application {
         G.add(init);
         
         for(int i = 0; i<SIZE; i++){
-        	Node rand = getRandomNode(k++);
+        	Node rand = getRandomNode(k);
         	Node nearest = getNearestNode(rand);
-        	rand.setPrev(nearest);
-        	nearest.setNext(rand);
-        	Line2D line = new Line2D.Double(rand.x, rand.y, nearest.x, nearest.y);
+        	Node newNode;
+        	if(dist(rand, nearest)>Main.DEL){
+        		double r = Main.DEL/dist(rand, nearest);
+            	newNode = new Node((int)(r*rand.x + (1-r)*nearest.x), (int)(r*rand.y + (1-r)*nearest.y),k++);
+        	}else{
+        		newNode = rand;
+        	}
+        	newNode.setPrev(nearest);
+        	nearest.setNext(newNode);
+        	Line2D line = new Line2D.Double(newNode.x, newNode.y, nearest.x, nearest.y);
        	
            	for(Obstacle o : obs){
         		if(line.ptSegDist(new Point2D.Double(o.x, o.y)) <= o.radius){
@@ -93,7 +107,7 @@ public class Main extends Application {
         		gc.setLineWidth(2);
         		Node current = rand;
         		Node previous;
-        		while(current.n != 0){
+        		while(current.prev != null){
         			System.out.println(current);
         			previous = current.prev;
         			gc.strokeLine(previous.x, previous.y, current.x, current.y);
