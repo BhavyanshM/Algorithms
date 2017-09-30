@@ -16,7 +16,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 	
-	static final int SIZE = 20000;
+	static final int SIZE = 32000;
 	
 	static final int DIM_X = 800;
 	static final int DIM_Y = 600;
@@ -31,9 +31,9 @@ public class Main extends Application {
 	static final int INIT_X = 0;
 	static final int INIT_Y = 0;	
 	static final int DIST = 20;
-	static final int FIN_X = 700;
-	static final int FIN_Y = 300;
-	static final int MARGIN = 20;
+	static final int FIN_X = 800;
+	static final int FIN_Y = 600;
+	static final int MARGIN = 30;
 	
 	static boolean good = true;
 	
@@ -78,7 +78,7 @@ public class Main extends Application {
         
         Node init = new Node(INIT_X, INIT_Y, k++);
         G.add(init);
-        
+        boolean done = false;
         for(int i = 0; i<SIZE; i++){
         	Node rand = getRandomNode(k);
         	Node nearest = getNearestNode(rand);
@@ -106,15 +106,34 @@ public class Main extends Application {
         		gc.setStroke(Color.RED);
         		gc.setLineWidth(2);
         		Node current = rand;
-        		Node previous;
-        		while(current.prev != null){
-        			System.out.println(current);
+        		Node previous, m1, m2;
+        		int count = 0;
+        		while(current.prev.prev != null & !done){
+        			System.out.println(current);        			
+        			m1 = new Node((int)((current.prev.x + current.prev.prev.x)/2),
+        					(int)((current.prev.y + current.prev.prev.y)/2), 0);
+        			m2 = new Node((int)((current.prev.x + current.x)/2), 
+        					(int)((current.y + current.prev.y)/2), 0);
+      
+        			if(count==0){
+        				gc.strokeLine(m2.x, m2.y, Main.FIN_X, Main.FIN_Y);
+        			}else if(current.prev.prev.prev == null){
+        				gc.strokeLine(m1.x, m1.y, Main.INIT_X, Main.INIT_Y);
+        			}
+        			count++;
+        			
         			previous = current.prev;
+        			gc.setStroke(Color.YELLOW);
         			gc.strokeLine(previous.x, previous.y, current.x, current.y);
+        			gc.setStroke(Color.RED);
+//        			gc.setLineWidth(3);
+        			gc.strokeLine(m1.x, m1.y, m2.x, m2.y);
         			current = previous;
         		}
         		gc.setStroke(Color.BLUE);
         		gc.setLineWidth(1);
+        		done = true;
+//        		break;
         	}
         	
         	good = true;
