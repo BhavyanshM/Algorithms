@@ -1,41 +1,27 @@
 package application;
 	
-import elements.*;
-
+import elements.Utility;
 import javafx.application.Application;
-import javafx.scene.Group;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 
 
 public class Main extends Application {
 
+	private FXMLLoader loader;
+	private Parent root;
+	
 	@Override
-	public void start(Stage primaryStage) {
-		try {
-			Canvas canvas = new Canvas(Utility.DIM_X, Utility.DIM_Y);
-			Group root = new Group();
-			Scene scene = new Scene(root, Utility.DIM_X, Utility.DIM_Y);
-			
-			GraphicsContext gc = canvas.getGraphicsContext2D();
-			Utility util = new Utility();
-			Plan plan = new Plan(gc, util);
-			
-			plan.RRT();
-			
-			root.getChildren().add(canvas);
+	public void start(Stage primaryStage) throws Exception{
+			loader = new FXMLLoader();
+			root = loader.load(getClass().getResource("/resources/interface.fxml").openStream());
+			Scene scene = new Scene(root, 1000, 800);		
 			primaryStage.setScene(scene);
+			primaryStage.setMaximized(true);
 			primaryStage.show();
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
 	}
-	
-
-	
-
 	
 	public static void main(String[] args) {
 		launch(args);

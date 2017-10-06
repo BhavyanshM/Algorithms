@@ -4,15 +4,15 @@ import java.util.ArrayList;
 
 public class Utility {
 	
-	public static final int SIZE = 48000;
+	public static final int SIZE = 20000;
 	
 	public static final int DIM_X = 800;
-	public static final int DIM_Y = 600;
+	public static final int DIM_Y = 550;
 	public static final int INIT_X = 0;
 	public static final int INIT_Y = 0;	
 	public static final int DIST = 20;
-	public static final int FIN_X = 800;
-	public static final int FIN_Y = 600;
+	public static final int FIN_X = DIM_X;
+	public static final int FIN_Y = DIM_Y;
 	public static final int MARGIN = 30;
 	
 	public ArrayList<Obstacle> obs;
