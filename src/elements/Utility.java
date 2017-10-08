@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Utility {
 	
-	public static final int SIZE = 20000;
+	public static final int SIZE = 30000;
 	
 	public static final int DIM_X = 800;
 	public static final int DIM_Y = 550;
@@ -25,7 +25,8 @@ public class Utility {
 	public void addObstacles(){
 		obs.add(new Obstacle(500, 100, 80));
 		obs.add(new Obstacle(200, 400, 150));
-		obs.add(new Obstacle(600, 450, 100));
+		obs.add(new Obstacle(680, 400, 100));
+		obs.add(new Obstacle(450, 300, 100));
 	}
 	
 	public Node getRandomNode(int id){

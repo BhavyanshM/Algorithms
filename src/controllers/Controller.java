@@ -8,7 +8,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 
 public class Controller {
@@ -31,6 +30,11 @@ public class Controller {
 		pane.setCenter(canvas);
 		gc = canvas.getGraphicsContext2D();
 		plan = new Plan(gc, util);	
-		plan.RRT();
+//		Thread build = new Thread(() ->{
+			plan.RRT();
+//			try{Thread.sleep(1);}catch(Exception e){}
+//		});
+//		
+//		build.start();
 	}
 }

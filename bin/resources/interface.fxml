@@ -41,7 +41,7 @@
             </VBox>
          </top>
          <left>
-            <VBox prefHeight="401.0" prefWidth="90.0" spacing="10.0" style="-fx-background-color: #29B6F6;" BorderPane.alignment="CENTER">
+            <VBox prefHeight="464.0" prefWidth="103.0" spacing="10.0" style="-fx-background-color: #29B6F6;" BorderPane.alignment="CENTER">
                <children>
                   <JFXButton buttonType="RAISED" prefHeight="40.0" prefWidth="90.0" style="-fx-background-color: #00796B;" text="RRT" textFill="WHITE">
                      <font>
@@ -67,7 +67,7 @@
             <VBox prefHeight="72.0" prefWidth="703.0" style="-fx-background-color: #009688;" BorderPane.alignment="CENTER" />
          </bottom>
          <right>
-            <VBox prefHeight="401.0" prefWidth="141.0" spacing="15.0" style="-fx-background-color: #B2DFDB;" BorderPane.alignment="CENTER">
+            <VBox prefHeight="464.0" prefWidth="153.0" spacing="15.0" style="-fx-background-color: #B2DFDB;" BorderPane.alignment="CENTER">
                <children>
                   <JFXTextField labelFloat="true" promptText="Number of Nodes">
                      <font>
