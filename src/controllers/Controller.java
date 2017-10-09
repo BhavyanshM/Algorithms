@@ -32,7 +32,7 @@ public class Controller {
 		plan = new Plan(gc, util);	
 //		Thread build = new Thread(() ->{
 			plan.RRT();
-//			try{Thread.sleep(1);}catch(Exception e){}
+//			try{Thread.sleep(10);}catch(Exception e){}
 //		});
 //		
 //		build.start();

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Utility {
 	
-	public static final int SIZE = 30000;
+	public static final int SIZE = 10000;
 	
 	public static final int DIM_X = 800;
 	public static final int DIM_Y = 550;

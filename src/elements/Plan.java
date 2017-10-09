@@ -14,9 +14,9 @@ public class Plan {
 	static final int DEL = 1200;
 	static final boolean REACHED = false;
 		
-	static ArrayList<Node> G = new ArrayList<Node>();
+	public ArrayList<Node> G;
 
-	static boolean good = true;
+	public boolean good;
 	
 	public GraphicsContext gc;
 	public Utility util;
@@ -24,6 +24,8 @@ public class Plan {
 	public Plan(GraphicsContext gc, Utility util){
 		this.gc = gc;
 		this.util = util;
+		G = new ArrayList<Node>();
+		good = true;
 	}
 	
 	public void RRT(){
