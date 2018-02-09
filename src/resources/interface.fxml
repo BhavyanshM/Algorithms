@@ -47,12 +47,12 @@
                      <font>
                         <Font name="Calibri" size="14.0" />
                      </font></JFXButton>
-                  <JFXButton buttonType="RAISED" prefHeight="40.0" prefWidth="90.0" style="-fx-background-color: #00796B;" text="Shooter" textFill="WHITE">
+                  <JFXButton buttonType="RAISED" prefHeight="40.0" prefWidth="90.0" style="-fx-background-color: #00796B;" text="DeepRL" textFill="WHITE">
                      <font>
                         <Font name="Calibri" size="14.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton buttonType="RAISED" prefHeight="40.0" prefWidth="90.0" style="-fx-background-color: #00796B;" text="Others" textFill="WHITE">
+                  <JFXButton fx:id="simulate" buttonType="RAISED" onAction="#onSimulateClicked" prefHeight="40.0" prefWidth="90.0" style="-fx-background-color: #00796B;" text="Simulate" textFill="WHITE">
                      <font>
                         <Font name="Calibri" size="14.0" />
                      </font>

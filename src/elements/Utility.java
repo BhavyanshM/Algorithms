@@ -16,17 +16,26 @@ public class Utility {
 	public static final int MARGIN = 30;
 	
 	public ArrayList<Obstacle> obs;
+	public ArrayList<Obstacle> mobs;
 
 	public Utility(){
 		obs = new ArrayList<Obstacle>();
+		mobs = new ArrayList<Obstacle>();
 		addObstacles();
 	}
 	
 	public void addObstacles(){
+		//X-coordinate, Y-coordinate, Radius
 		obs.add(new Obstacle(500, 100, 80));
 		obs.add(new Obstacle(200, 400, 150));
 		obs.add(new Obstacle(680, 400, 100));
 		obs.add(new Obstacle(450, 300, 100));
+		
+		//X-coordinate, Y-coordinate, Radius, VelX, VelY
+		mobs.add(new Obstacle(100, 100, 130, -3, 1));
+		mobs.add(new Obstacle(200, 200, 140, 2, -1));
+		mobs.add(new Obstacle(680, 400, 120, -3, 3));
+		mobs.add(new Obstacle(400, 300, 150, -1, -3));
 	}
 	
 	public Node getRandomNode(int id){
