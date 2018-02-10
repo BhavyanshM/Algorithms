@@ -26,16 +26,25 @@ public class Simulator {
 
 	    new AnimationTimer()
 	    {
-	    	int x = 100;
+	    	int time = 0;
+	    	Agent agent = util.agent;
 	        public void handle(long currentNanoTime)
-	        {
-	        	
-	        	
+	        {	
+	        	time++;
 	        	gc.clearRect(0, 0, Utility.DIM_X, Utility.DIM_Y);
 	        	drawBoundary(gc);
 	        	for(Obstacle obs : util.mobs){
-	        		gc.fillOval(obs.getX(), obs.getY(), obs.getRadius(), obs.getRadius());	          
+	        		gc.setFill(Color.CHOCOLATE);
+	        		gc.fillOval(obs.getX(), obs.getY(), obs.getRadius(), obs.getRadius());
+	        		gc.setFill(Color.BLACK);
+	        		gc.fillOval(agent.getX(), agent.getY(), 10, 10);
 	        		obs = move(obs);
+	        		
+	        		if(time==2){
+	        			agent = act(agent);
+	        			
+	        			time = 0;
+	        		}
 	        	}
 	        }
 	    }.start();
@@ -60,4 +69,12 @@ public class Simulator {
 		obs.y+=obs.vely;
 		return obs;
 	}
+	
+	public Agent act(Agent agent){
+//		System.out.println("Agent:" + agent.x + "," + agent.y);
+		agent.x+=agent.velx;
+		agent.y+=agent.vely;
+		return agent;
+	}
+
 }

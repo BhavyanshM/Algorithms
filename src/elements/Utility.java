@@ -1,6 +1,7 @@
 package elements;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Utility {
 	
@@ -17,7 +18,8 @@ public class Utility {
 	
 	public ArrayList<Obstacle> obs;
 	public ArrayList<Obstacle> mobs;
-
+	public Agent agent;
+	
 	public Utility(){
 		obs = new ArrayList<Obstacle>();
 		mobs = new ArrayList<Obstacle>();
@@ -31,11 +33,21 @@ public class Utility {
 		obs.add(new Obstacle(680, 400, 100));
 		obs.add(new Obstacle(450, 300, 100));
 		
+		
 		//X-coordinate, Y-coordinate, Radius, VelX, VelY
-		mobs.add(new Obstacle(100, 100, 130, -3, 1));
-		mobs.add(new Obstacle(200, 200, 140, 2, -1));
-		mobs.add(new Obstacle(680, 400, 120, -3, 3));
-		mobs.add(new Obstacle(400, 300, 150, -1, -3));
+		mobs.add(new Obstacle(500, 150, 130, r(-4,8), r(-4,8)));
+		mobs.add(new Obstacle(180, 350, 140, r(-4,8), r(-4,8)));
+		mobs.add(new Obstacle(150, 150, 120, r(-4,8), r(-4,8)));
+		mobs.add(new Obstacle(500, 350, 150, r(-4,8), r(-4,8)));
+		
+		//X-coordinate, Y-coordinate, VelX, VelY
+		this.agent = new Agent(0, 0, 0, 0);
+	}
+	
+	static public int r(int min, int max){
+		int x = min + new Random().nextInt(max);
+		if(x!=0)return x;
+		else return x+1;
 	}
 	
 	public Node getRandomNode(int id){

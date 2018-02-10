@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="595.0" prefWidth="762.0" style="-fx-background-color: #B2EBF2;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Controller">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#onKeyEvent" prefHeight="595.0" prefWidth="762.0" style="-fx-background-color: #B2EBF2;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Controller">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0">
          <top>
@@ -69,26 +69,26 @@
          <right>
             <VBox prefHeight="464.0" prefWidth="153.0" spacing="15.0" style="-fx-background-color: #B2DFDB;" BorderPane.alignment="CENTER">
                <children>
-                  <JFXTextField labelFloat="true" promptText="Number of Nodes">
+                  <JFXTextField labelFloat="true" onKeyPressed="#onKeyEvent" promptText="Number of Nodes">
                      <font>
                         <Font name="Calibri" size="14.0" />
                      </font></JFXTextField>
-                  <JFXTextField labelFloat="true" promptText="INIT_X">
+                  <JFXTextField labelFloat="true" onKeyPressed="#onKeyEvent" promptText="INIT_X">
                      <font>
                         <Font name="Calibri" size="14.0" />
                      </font>
                   </JFXTextField>
-                  <JFXTextField labelFloat="true" promptText="INIT_Y">
+                  <JFXTextField labelFloat="true" onKeyPressed="#onKeyEvent" promptText="INIT_Y">
                      <font>
                         <Font name="Calibri" size="14.0" />
                      </font>
                   </JFXTextField>
-                  <JFXTextField labelFloat="true" promptText="TARGET_X">
+                  <JFXTextField labelFloat="true" onKeyPressed="#onKeyEvent" promptText="TARGET_X">
                      <font>
                         <Font name="Calibri" size="14.0" />
                      </font>
                   </JFXTextField>
-                  <JFXTextField labelFloat="true" promptText="TARGET_Y">
+                  <JFXTextField labelFloat="true" onKeyPressed="#onKeyEvent" promptText="TARGET_Y">
                      <font>
                         <Font name="Calibri" size="14.0" />
                      </font>
@@ -96,7 +96,7 @@
                   <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
                   <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" VBox.vgrow="NEVER">
                      <children>
-                        <JFXButton buttonType="RAISED" prefHeight="45.0" prefWidth="126.0" style="-fx-background-color: #039BE5;" text="Cancel">
+                        <JFXButton buttonType="RAISED" onAction="#onCancel" prefHeight="45.0" prefWidth="126.0" style="-fx-background-color: #039BE5;" text="Cancel">
                            <font>
                               <Font name="Calibri" size="14.0" />
                            </font>

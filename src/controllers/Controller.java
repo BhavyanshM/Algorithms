@@ -5,13 +5,13 @@ import com.jfoenix.controls.JFXButton;
 import elements.Plan;
 import elements.Simulator;
 import elements.Utility;
-import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.Color;
 
 public class Controller {
 	Canvas canvas;
@@ -42,6 +42,22 @@ public class Controller {
 //		});
 //		
 //		build.start();
+	}
+	
+	@FXML
+	public void onKeyEvent (KeyEvent event)throws Exception{
+		if(event.getCode().equals(KeyCode.LEFT))
+			if(util.agent.velx>-4)
+			util.agent.velx--;
+		if(event.getCode().equals(KeyCode.RIGHT))
+			if(util.agent.velx<4)
+				util.agent.velx++;
+		if(event.getCode().equals(KeyCode.UP))
+			if(util.agent.vely>-4)
+				util.agent.vely--;
+		if(event.getCode().equals(KeyCode.DOWN))
+			if(util.agent.vely<4)
+				util.agent.vely++;
 	}
 	
 	@FXML
