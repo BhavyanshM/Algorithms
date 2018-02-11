@@ -1,14 +1,21 @@
 package controllers;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+
+import javax.imageio.ImageIO;
+
 import com.jfoenix.controls.JFXButton;
 
 import elements.Plan;
 import elements.Simulator;
 import elements.Utility;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
@@ -23,7 +30,6 @@ public class Controller {
 	private GraphicsContext gc;
 	private Simulator sim;
 	
-	Thread simulation;
 	
 	public Controller(){
 	}
@@ -76,6 +82,8 @@ public class Controller {
 	
 	@FXML
 	public void onCancel(ActionEvent event) throws Exception{
-		this.simulation.interrupt();
+		WritableImage image = canvas.snapshot(null, null);
+		BufferedImage bImage = SwingFXUtils.fromFXImage(image, null);
+		ImageIO.write(bImage, "png", new File("C:\\DataBM\\canvas_image.png"));
 	}
 }
