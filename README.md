@@ -4,9 +4,11 @@
 
 This repository is a collection of algorithms used by the Air Team at the University of West Florida for different parts of the SUAS project such as Motion Planning, Obstacle Avoidance, Object Detection and Classification, etc.
 
-### Rapidly-Exploring Random Tree (RRT)
+### Deep Reinforcement Learning (Deep Q-Network)
 
-This project offers a Deep Reinforcement Learning solution to the Dynamic Obstacle Avoidance and Path-Planning problem for Unmanned Aerial Vehicles. The agent is trained in a JavaFX 2D simulator using the same technique used by DeepMind to train agents that can play Atari 2600 games. The program also employs a Rapidly-exploring Random Tree (RRT) as a basis to distinguish between traversible and non-traversible regions in the airspace. It basically eliminates Static Obstacles from the problem.
+This project offers a Deep Reinforcement Learning solution to the Dynamic Obstacle Avoidance and Path-Planning problem for Unmanned Aerial Vehicles. A Deep Q-Network Agent is trained in a JavaFX 2D simulator using the same technique used by DeepMind to train agents that can play Atari 2600 games. The program also employs a Rapidly-exploring Random Tree (RRT) as a basis to distinguish between traversible and non-traversible regions in the airspace. It basically eliminates Static Obstacles from the problem.
+
+### Rapidly-Exploring Random Tree (RRT)
 
 Rapidly-Exploring Random Tree (RRT) is a probabilistically complete and computationally efficient algorithm used for path planning in Robotics. This repository contains a basic RRT implemented in Java.
 
