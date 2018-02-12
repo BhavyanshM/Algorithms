@@ -1,6 +1,5 @@
 package application;
 	
-import elements.Utility;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

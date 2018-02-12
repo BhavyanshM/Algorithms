@@ -8,7 +8,7 @@ public class Utility {
 	public static final int SIZE = 10000;
 	
 	public static final int DIM_X = 800;
-	public static final int DIM_Y = 550;
+	public static final int DIM_Y = 600;
 	public static final int INIT_X = 0;
 	public static final int INIT_Y = 0;	
 	public static final int DIST = 20;
