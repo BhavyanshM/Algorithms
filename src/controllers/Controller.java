@@ -15,6 +15,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Label;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -24,6 +25,8 @@ public class Controller {
 	Canvas canvas;
 	@FXML
 	JFXButton runButton;
+	@FXML
+	Label reward;
 	
 	private Utility util;
 	private Plan plan;
@@ -41,6 +44,7 @@ public class Controller {
 		BorderPane pane = (BorderPane)(runButton.getParent().getParent().getParent());
 		pane.setCenter(canvas);
 		gc = canvas.getGraphicsContext2D();
+		System.out.println("Trying to plan");
 		plan = new Plan(gc, util);	
 //		Thread build = new Thread(() ->{
 			plan.RRT();

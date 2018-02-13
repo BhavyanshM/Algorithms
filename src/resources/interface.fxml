@@ -16,7 +16,7 @@
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0">
          <top>
-            <VBox prefHeight="59.0" prefWidth="703.0" style="-fx-background-color: #00695C;" BorderPane.alignment="CENTER">
+            <VBox prefHeight="59.0" prefWidth="703.0" style="-fx-background-color: #00695C;" BorderPane.alignment="TOP_RIGHT">
                <children>
                   <MenuBar>
                     <menus>
@@ -67,7 +67,7 @@
             <VBox prefHeight="72.0" prefWidth="703.0" style="-fx-background-color: #009688;" BorderPane.alignment="CENTER" />
          </bottom>
          <right>
-            <VBox prefHeight="464.0" prefWidth="153.0" spacing="15.0" style="-fx-background-color: #B2DFDB;" BorderPane.alignment="CENTER">
+            <VBox alignment="TOP_CENTER" prefHeight="464.0" prefWidth="153.0" spacing="15.0" style="-fx-background-color: #B2DFDB;" BorderPane.alignment="CENTER">
                <children>
                   <JFXTextField labelFloat="true" onKeyPressed="#onKeyEvent" promptText="Number of Nodes">
                      <font>
@@ -93,7 +93,7 @@
                         <Font name="Calibri" size="14.0" />
                      </font>
                   </JFXTextField>
-                  <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                  <Region prefHeight="72.0" prefWidth="139.0" VBox.vgrow="ALWAYS" />
                   <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" VBox.vgrow="NEVER">
                      <children>
                         <JFXButton buttonType="RAISED" onAction="#onCancel" prefHeight="45.0" prefWidth="126.0" style="-fx-background-color: #039BE5;" text="Cancel">

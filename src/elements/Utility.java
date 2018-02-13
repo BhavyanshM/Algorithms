@@ -3,12 +3,14 @@ package elements;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javafx.scene.control.Label;
+
 public class Utility {
 	
 	public static final int SIZE = 10000;
 	
-	public static final int DIM_X = 800;
-	public static final int DIM_Y = 600;
+	public static final int DIM_X = 630;
+	public static final int DIM_Y = 480;
 	public static final int INIT_X = 0;
 	public static final int INIT_Y = 0;	
 	public static final int DIST = 20;
@@ -20,6 +22,16 @@ public class Utility {
 	public ArrayList<Obstacle> mobs;
 	public Agent agent;
 	
+	public static Label label;
+	
+	public Label getLabel() {
+		return label;
+	}
+
+	public void setLabel(Label label) {
+		Utility.label = label;
+	}
+
 	public Utility(){
 		obs = new ArrayList<Obstacle>();
 		mobs = new ArrayList<Obstacle>();
@@ -28,20 +40,23 @@ public class Utility {
 	
 	public void addObstacles(){
 		//X-coordinate, Y-coordinate, Radius
-		obs.add(new Obstacle(500, 100, 80));
-		obs.add(new Obstacle(200, 400, 150));
-		obs.add(new Obstacle(680, 400, 100));
-		obs.add(new Obstacle(450, 300, 100));
+		obs.add(new Obstacle(70, 100, 170));
+		obs.add(new Obstacle(270, 160, 150));
+		obs.add(new Obstacle(150, 300, 100));
+		obs.add(new Obstacle(330, 360, 100));
+		obs.add(new Obstacle(410, 30, 200));
 		
 		
 		//X-coordinate, Y-coordinate, Radius, VelX, VelY
-		mobs.add(new Obstacle(500, 150, 130, r(-4,8), r(-4,8)));
-		mobs.add(new Obstacle(180, 350, 140, r(-4,8), r(-4,8)));
-		mobs.add(new Obstacle(150, 150, 120, r(-4,8), r(-4,8)));
-		mobs.add(new Obstacle(500, 350, 150, r(-4,8), r(-4,8)));
+		mobs.add(new Obstacle(400, 150, 120, r(-4,8), r(-4,8)));
+		mobs.add(new Obstacle(180, 320, 150, r(-4,8), r(-4,8)));
+		mobs.add(new Obstacle(150, 150, 110, r(-4,8), r(-4,8)));
+		mobs.add(new Obstacle(400, 320, 140, r(-4,8), r(-4,8)));
 		
 		//X-coordinate, Y-coordinate, VelX, VelY
 		this.agent = new Agent(0, 0, 0, 0);
+		
+		
 	}
 	
 	static public int r(int min, int max){

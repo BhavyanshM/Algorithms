@@ -13,6 +13,12 @@ public class Node{
 		this.n = c;
 	}
 	
+	public Node(int a, int b){
+		this.x = a;
+		this.y = b;
+		this.n = 0;
+	}
+	
 	public void setNext(Node a){
 		this.next = a;
 	}
