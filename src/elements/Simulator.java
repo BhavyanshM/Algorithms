@@ -97,7 +97,7 @@ public class Simulator {
 			oby = o.radius/2 + o.y;
 			agx = agent.getX() + 5;
 			agy = agent.getY() + 5;
-			if(util.dist(new Node(agx,  agy), new Node(obx, oby)) <=o.radius){
+			if(util.dist(new Node(agx,  agy), new Node(obx, oby)) <=o.radius/2){
 				result--;
 				if(result<0)result = 0;
 				System.out.println("InsideObstacleBoundary");
@@ -111,7 +111,7 @@ public class Simulator {
 			oby = o.radius/2 + o.y;
 			agx = agent.getX() + 5;
 			agy = agent.getY() + 5;
-			if(util.dist(new Node(agx,  agy), new Node(obx, oby)) <=o.radius){
+			if(util.dist(new Node(agx,  agy), new Node(obx, oby)) <=o.radius/2){
 				result--;
 				if(result<0)result = 0;
 				System.out.println("InsideObstacleBoundary");

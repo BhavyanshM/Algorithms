@@ -1,5 +1,6 @@
 package controllers;
 
+import java.awt.Robot;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
@@ -7,6 +8,7 @@ import javax.imageio.ImageIO;
 
 import com.jfoenix.controls.JFXButton;
 
+import elements.Agent;
 import elements.Plan;
 import elements.Simulator;
 import elements.Utility;
@@ -56,18 +58,30 @@ public class Controller {
 	
 	@FXML
 	public void onKeyEvent (KeyEvent event)throws Exception{
-		if(event.getCode().equals(KeyCode.LEFT))
-			if(util.agent.velx>-4)
-			util.agent.velx--;
-		if(event.getCode().equals(KeyCode.RIGHT))
-			if(util.agent.velx<4)
+		util.agent.state = Agent.STARTING;
+		if(event.getCode().equals(KeyCode.LEFT)){
+			if(util.agent.velx>-4){
+				util.agent.velx--;
+			}
+		}			
+			
+		if(event.getCode().equals(KeyCode.RIGHT)){
+			if(util.agent.velx<4){
 				util.agent.velx++;
-		if(event.getCode().equals(KeyCode.UP))
-			if(util.agent.vely>-4)
+			}
+		}
+		
+		if(event.getCode().equals(KeyCode.UP)){
+			if(util.agent.vely>-4){
 				util.agent.vely--;
-		if(event.getCode().equals(KeyCode.DOWN))
-			if(util.agent.vely<4)
+			}
+		}
+				
+		if(event.getCode().equals(KeyCode.DOWN)){
+			if(util.agent.vely<4){
 				util.agent.vely++;
+			}
+		}
 	}
 	
 	@FXML

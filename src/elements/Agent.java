@@ -1,12 +1,17 @@
 package elements;
 
 public class Agent {
+	public static final int STARTING = 0;
+	public static final int INTERIM = 1;
+	public static final int ENDING = 2;
+	public int state;
 	public int x;
 	public int y;
 	public int velx;
 	public int vely;
 	
 	public Agent(int x, int y, int vx, int vy){
+		this.state = Agent.STARTING;
 		this.x = x;
 		this.y = y;
 		this.velx = vx;
