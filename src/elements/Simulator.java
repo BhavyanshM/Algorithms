@@ -80,6 +80,11 @@ public class Simulator {
 	
 	public double eval(Agent agent){
 		double result = reward;
+		if(agent.velx==0 && agent.vely==0 && agent.x !=0 && agent.y!=0){	
+			System.out.println("STOPPED");
+			result--;
+			if(result<0)result=0;
+		}
 		if(agent.getX()<Utility.DIM_X && agent.getY()<Utility.DIM_Y
 				&& agent.getX()>0 && agent.getY()>0){
 			result += 0.1;
@@ -90,6 +95,8 @@ public class Simulator {
 			if(result<0)result=0;
 			System.out.println("Outside");
 		}
+		
+		
 		
 		for(Obstacle o : util.mobs){
 			int obx,oby,agx,agy;
