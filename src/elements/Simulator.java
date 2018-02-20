@@ -1,9 +1,16 @@
 package elements;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 import controllers.Controller;
 import javafx.animation.AnimationTimer;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 
 public class Simulator {
@@ -13,10 +20,13 @@ public class Simulator {
 	public Utility util;
 	public double reward;
 	public Controller con;
+	public Canvas canvas;
+	public Thread click;
 	
-	public Simulator(GraphicsContext g, Utility u){
+	public Simulator(Canvas can, Utility u){
 		this.util = u;
-		this.gc = g;
+		this.canvas = can;
+		this.gc = can.getGraphicsContext2D();
 		reward = 0;
 	}
 	
@@ -30,8 +40,10 @@ public class Simulator {
 	    new AnimationTimer()
 	    {
 	    	int time = 0;
+	    	int p = 0;
+	    	int clickTime = 0;
 	    	Agent agent = util.agent;
-	        public void handle(long currentNanoTime)
+	        public void handle (long currentNanoTime) 
 	        {	
 	        	time++;
 	        	gc.clearRect(0, 0, Utility.DIM_X, Utility.DIM_Y);
@@ -40,13 +52,13 @@ public class Simulator {
 	        	for(Obstacle sob : util.obs){
 	        		gc.setFill(Color.LIGHTSEAGREEN);
 	        		gc.fillOval(sob.getX(), sob.getY(), sob.getRadius(), sob.getRadius());
-	        		int obx = sob.radius/2 + sob.x;
-	    			int oby = sob.radius/2 + sob.y;
-	    			int agx = agent.getX() + 5;
-	    			int agy = agent.getY() + 5;	 
-		        	gc.setLineWidth(1);
-		        	gc.setStroke(Color.BISQUE);
-	    			gc.strokeLine(agx, agy, obx, oby);
+//	        		int obx = sob.radius/2 + sob.x;
+//	    			int oby = sob.radius/2 + sob.y;
+//	    			int agx = agent.getX() + 5;
+//	    			int agy = agent.getY() + 5;	 
+//		        	gc.setLineWidth(1);
+//		        	gc.setStroke(Color.BISQUE);
+//	    			gc.strokeLine(agx, agy, obx, oby);
 	        	}
 	        	
 	        	for(Obstacle obs : util.mobs){
@@ -61,21 +73,45 @@ public class Simulator {
 	        			reward = eval(agent);
 	        			time = 0;
 	        		}
-	        		System.out.printf("%.2f\n", reward);
-	        		int obx,oby,agx,agy;
-	    			obx = obs.radius/2 + obs.x;
-	    			oby = obs.radius/2 + obs.y;
-	    			agx = agent.getX() + 5;
-	    			agy = agent.getY() + 5;
-	    			gc.setLineWidth(1);
-		        	gc.setStroke(Color.BISQUE);
-	    			gc.strokeLine(agx, agy, obx, oby);
+//	        		System.out.printf("%.2f\n", reward);
+
+	        		
+//	        		int obx,oby,agx,agy;
+//	    			obx = obs.radius/2 + obs.x;
+//	    			oby = obs.radius/2 + obs.y;
+//	    			agx = agent.getX() + 5;
+//	    			agy = agent.getY() + 5;
+//	    			gc.setLineWidth(1);
+//		        	gc.setStroke(Color.BISQUE);
+//	    			gc.strokeLine(agx, agy, obx, oby);
 	    			
+	    		
 	    			
 	        	}
+	        	
+	        	/*Click images only when needed
+	        	 * */
+//	        	if(clickTime==10){
+//	        		clickImage(p);
+//		    		clickTime = 0;
+//		    		p++;
+//	        	}
+	    		
+	    		clickTime++;
+	    		
 	        }
 	    }.start();
         
+	}
+	
+	public void clickImage(int p){
+		WritableImage image = canvas.snapshot(null, null);
+		BufferedImage bImage = SwingFXUtils.fromFXImage(image, null);
+		try{
+			ImageIO.write(bImage, "png", new File("C:/DataBM/Research/ML/Images/canvas_image_"+p+".png"));
+		}catch(Exception e){
+			System.out.println("File canvas_image_" + p + ".png not created.");
+		}
 	}
 	
 	public double eval(Agent agent){
@@ -125,6 +161,8 @@ public class Simulator {
 				break;				
 			}
 		}
+		
+		
 		
 		return result;
 	}

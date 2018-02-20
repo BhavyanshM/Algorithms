@@ -9,7 +9,7 @@ public class Utility {
 	
 	public static final int SIZE = 10000;
 	
-	public static final int DIM_X = 630;
+	public static final int DIM_X = 640;
 	public static final int DIM_Y = 480;
 	public static final int INIT_X = 0;
 	public static final int INIT_Y = 0;	

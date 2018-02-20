@@ -1,6 +1,5 @@
 package controllers;
 
-import java.awt.Robot;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
@@ -89,7 +88,7 @@ public class Controller {
 		util = new Utility();
 		canvas = new Canvas(Utility.DIM_X, Utility.DIM_Y);
 		gc = canvas.getGraphicsContext2D();
-		sim = new Simulator(gc, util);
+		sim = new Simulator(canvas, util);
 		BorderPane pane = (BorderPane)(runButton.getParent().getParent().getParent());
 		pane.setCenter(canvas);
 		sim.simulate();
