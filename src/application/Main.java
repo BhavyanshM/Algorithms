@@ -25,17 +25,17 @@ public class Main extends Application {
 			primaryStage.setMaximized(true);
 			primaryStage.show();
 			
-			Thread build = new Thread(() ->{
-				String s = "";
-				while(true){
-					if(scan.hasNext()){
-						s = scan.nextLine();
-						System.out.println("String: " + s);
-					}
-				}
-			});
-			
-			build.start();
+//			Thread build = new Thread(() ->{
+//				String s = "";
+//				while(true){
+//					if(scan.hasNext()){
+//						s = scan.nextLine();
+//						System.out.println("String: " + s);
+//					}
+//				}
+//			});
+//			
+//			build.start();
 	}
 	
 	public static void main(String[] args) {

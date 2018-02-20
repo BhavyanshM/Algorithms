@@ -1,6 +1,13 @@
 package elements;
 import java.awt.image.BufferedImage;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
@@ -11,6 +18,7 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.WritableImage;
+import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 
 public class Simulator {
@@ -22,12 +30,24 @@ public class Simulator {
 	public Controller con;
 	public Canvas canvas;
 	public Thread click;
+	public BufferedReader actionIn;
+	public BufferedWriter rewardOut;
+	File actionFile;
+	File rewardFile;
+	String actionString;
 	
-	public Simulator(Canvas can, Utility u){
+	public Simulator(Canvas can, Utility u) throws Exception{
 		this.util = u;
 		this.canvas = can;
 		this.gc = can.getGraphicsContext2D();
+		actionString = "NOP";
 		reward = 0;
+		actionFile = new File("C:/DataBM/Research/ML/Images/action.txt");
+		actionFile.createNewFile();
+		rewardFile = new File("C:/DataBM/Research/ML/Images/reward.txt");
+		rewardFile.createNewFile();
+		actionIn = new BufferedReader(new FileReader(actionFile));
+		rewardOut = new BufferedWriter(new FileWriter(rewardFile, false));
 	}
 	
 	public void simulate(){
@@ -41,67 +61,76 @@ public class Simulator {
 	    {
 	    	int time = 0;
 	    	int p = 0;
-	    	int clickTime = 0;
 	    	Agent agent = util.agent;
+	    	
 	        public void handle (long currentNanoTime) 
 	        {	
 	        	time++;
 	        	gc.clearRect(0, 0, Utility.DIM_X, Utility.DIM_Y);
 
 	        	drawBoundary(gc);
-	        	for(Obstacle sob : util.obs){
-	        		gc.setFill(Color.LIGHTSEAGREEN);
-	        		gc.fillOval(sob.getX(), sob.getY(), sob.getRadius(), sob.getRadius());
-//	        		int obx = sob.radius/2 + sob.x;
-//	    			int oby = sob.radius/2 + sob.y;
-//	    			int agx = agent.getX() + 5;
-//	    			int agy = agent.getY() + 5;	 
-//		        	gc.setLineWidth(1);
-//		        	gc.setStroke(Color.BISQUE);
-//	    			gc.strokeLine(agx, agy, obx, oby);
-	        	}
+	        	drawStaticObstacles();
+	        	drawMovingObstalces();	        	
 	        	
-	        	for(Obstacle obs : util.mobs){
-	        		gc.setFill(Color.CHOCOLATE);
-	        		gc.fillOval(obs.getX(), obs.getY(), obs.getRadius(), obs.getRadius());
-	        		gc.setFill(Color.BLACK);
-	        		gc.fillOval(agent.getX(), agent.getY(), 10, 10);
-	        		obs = move(obs);
-	        		
-	        		if(time==2){
-	        			agent = act(agent);
-	        			reward = eval(agent);
-	        			time = 0;
-	        		}
-//	        		System.out.printf("%.2f\n", reward);
-
-	        		
-//	        		int obx,oby,agx,agy;
-//	    			obx = obs.radius/2 + obs.x;
-//	    			oby = obs.radius/2 + obs.y;
-//	    			agx = agent.getX() + 5;
-//	    			agy = agent.getY() + 5;
-//	    			gc.setLineWidth(1);
-//		        	gc.setStroke(Color.BISQUE);
-//	    			gc.strokeLine(agx, agy, obx, oby);
-	    			
-	    		
-	    			
-	        	}
-	        	
-	        	/*Click images only when needed
-	        	 * */
-//	        	if(clickTime==10){
-//	        		clickImage(p);
-//		    		clickTime = 0;
-//		    		p++;
-//	        	}
-	    		
-	    		clickTime++;
-	    		
+        		if(time==2){
+        	try{	actionString = getActionString();	} catch (Exception e1) {}
+        			System.out.println(actionString);
+        			setAction(actionString);
+        			agent = act(agent);
+        			reward = eval(agent);
+        	try{	outputReward();						}catch(Exception e){}
+//	        		clickImage(p++);
+        			time = 0;
+        		}		
 	        }
 	    }.start();
         
+
+	
+		}
+	
+	public String getActionString() throws Exception{
+		actionIn = new BufferedReader(new FileReader(actionFile));
+		String result = actionIn.readLine();
+		actionIn.close();
+		return result;
+	}
+	
+	public void joinCenters(){
+//		int obx,oby,agx,agy;
+//		obx = obs.radius/2 + obs.x;
+//		oby = obs.radius/2 + obs.y;
+//		agx = agent.getX() + 5;
+//		agy = agent.getY() + 5;
+//		gc.setLineWidth(1);
+//    	gc.setStroke(Color.BISQUE);
+//		gc.strokeLine(agx, agy, obx, oby);
+		
+	}
+	
+	public void drawMovingObstalces(){
+		for(Obstacle obs : util.mobs){
+    		obs = move(obs); 
+    		gc.setFill(Color.CHOCOLATE);
+    		gc.fillOval(obs.getX(), obs.getY(), obs.getRadius(), obs.getRadius());
+    		gc.setFill(Color.BLACK);
+    		gc.fillOval(util.agent.getX(), util.agent.getY(), 10, 10);	        		   			
+    	}	
+	}
+	
+	public void drawStaticObstacles(){
+		for(Obstacle sob : util.obs){
+    		gc.setFill(Color.LIGHTSEAGREEN);
+    		gc.fillOval(sob.getX(), sob.getY(), sob.getRadius(), sob.getRadius());
+    	}
+	}
+	
+	public void outputReward() throws Exception{
+		System.out.printf("%.1f\n", reward);
+		rewardOut = new BufferedWriter(new FileWriter(rewardFile, false));
+		rewardOut.flush();
+		rewardOut.write(String.format("%.1f\n\n", reward));
+		rewardOut.close();
 	}
 	
 	public void clickImage(int p){
@@ -115,21 +144,22 @@ public class Simulator {
 	}
 	
 	public double eval(Agent agent){
-		double result = reward;
-		if(agent.velx==0 && agent.vely==0 && agent.x !=0 && agent.y!=0){	
-			System.out.println("STOPPED");
-			result--;
-			if(result<0)result=0;
-		}
-		if(agent.getX()<Utility.DIM_X && agent.getY()<Utility.DIM_Y
-				&& agent.getX()>0 && agent.getY()>0){
-			result += 0.1;
-			System.out.println("Good");
-		}else if(agent.getX()>Utility.DIM_X || agent.getY()>Utility.DIM_Y
+		double result = 0;
+		if(agent.getX()>Utility.DIM_X || agent.getY()>Utility.DIM_Y
 				|| agent.getX()<0 || agent.getY()<0){
-			result -= 5;
-			if(result<0)result=0;
-			System.out.println("Outside");
+			result = -5;
+//			if(result<0)result=0;
+//			System.out.println("Outside");
+		}
+		else if(agent.velx==0 && agent.vely==0 && agent.x !=0 && agent.y!=0){	
+//			System.out.println("STOPPED");
+			result = -1;
+//			if(result<0)result=0;
+		}
+		else if(agent.getX()<Utility.DIM_X && agent.getY()<Utility.DIM_Y
+				&& agent.getX()>0 && agent.getY()>0){
+			result = 0.1;
+//			System.out.println("Good");
 		}
 		
 		
@@ -141,9 +171,9 @@ public class Simulator {
 			agx = agent.getX() + 5;
 			agy = agent.getY() + 5;
 			if(util.dist(new Node(agx,  agy), new Node(obx, oby)) <=o.radius/2){
-				result--;
-				if(result<0)result = 0;
-				System.out.println("InsideObstacleBoundary");
+				result = -1;
+//				if(result<0)result = 0;
+//				System.out.println("InsideObstacleBoundary");
 				break;				
 			}			
 		}
@@ -155,9 +185,9 @@ public class Simulator {
 			agx = agent.getX() + 5;
 			agy = agent.getY() + 5;
 			if(util.dist(new Node(agx,  agy), new Node(obx, oby)) <=o.radius/2){
-				result--;
-				if(result<0)result = 0;
-				System.out.println("InsideObstacleBoundary");
+				result = -1;
+//				if(result<0)result = 0;
+//				System.out.println("InsideObstacleBoundary");
 				break;				
 			}
 		}
@@ -193,4 +223,37 @@ public class Simulator {
 		return agent;
 	}
 
+	public void setAction(String action){
+		util.agent.state = Agent.STARTING;
+		
+		if(action.contains("STOP")){
+				util.agent.velx=0;
+				util.agent.vely=0;
+		}
+		
+		if(action.contains("LEFT")){
+			if(util.agent.velx>-4){
+				util.agent.velx--;
+			}
+		}			
+			
+		if(action.contains("RIGHT")){
+			if(util.agent.velx<4){
+				util.agent.velx++;
+			}
+		}
+		
+		if(action.contains("UP")){
+			if(util.agent.vely>-4){
+				util.agent.vely--;
+			}
+		}
+				
+		if(action.contains("DOWN")){
+			if(util.agent.vely<4){
+				util.agent.vely++;
+			}
+		}
+	}
+	
 }
