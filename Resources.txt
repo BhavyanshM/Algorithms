@@ -1,1 +1,2 @@
 https://danieltakeshi.github.io/2016/11/25/frame-skipping-and-preprocessing-for-deep-q-networks-on-atari-2600-games/
+https://becominghuman.ai/lets-build-an-atari-ai-part-1-dqn-df57e8ff3b26

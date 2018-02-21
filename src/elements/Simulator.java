@@ -72,18 +72,18 @@ public class Simulator {
 	        	drawStaticObstacles();
 	        	drawMovingObstalces();	        	
 	        	
-        		if(time%2==0){
+//        		if(time%2==0){
         	try{	actionString = getActionString();	} catch (Exception e1) {}
         			System.out.println(actionString);
         			setAction(actionString);
         			agent = act(agent);
         			reward = eval(agent);
         	try{	outputReward();						}catch(Exception e){}
-		        	if(time%10==0){
+//		        	if(time%10==0){
 		        		clickImage(p++);
-		        	}
+//		        	}
 		        	if(time==100000)time=0;
-        		}		
+//        		}		
 	        }
 	    }.start();
         
