@@ -72,15 +72,17 @@ public class Simulator {
 	        	drawStaticObstacles();
 	        	drawMovingObstalces();	        	
 	        	
-        		if(time==2){
+        		if(time%2==0){
         	try{	actionString = getActionString();	} catch (Exception e1) {}
         			System.out.println(actionString);
         			setAction(actionString);
         			agent = act(agent);
         			reward = eval(agent);
         	try{	outputReward();						}catch(Exception e){}
-//	        		clickImage(p++);
-        			time = 0;
+		        	if(time%10==0){
+		        		clickImage(p++);
+		        	}
+		        	if(time==100000)time=0;
         		}		
 	        }
 	    }.start();
@@ -137,7 +139,7 @@ public class Simulator {
 		WritableImage image = canvas.snapshot(null, null);
 		BufferedImage bImage = SwingFXUtils.fromFXImage(image, null);
 		try{
-			ImageIO.write(bImage, "png", new File("C:/DataBM/Research/ML/Images/canvas_image_"+p+".png"));
+			ImageIO.write(bImage, "png", new File("C:/DataBM/Research/ML/Images/Output/canvas_image_"+p+".png"));
 		}catch(Exception e){
 			System.out.println("File canvas_image_" + p + ".png not created.");
 		}
@@ -225,6 +227,8 @@ public class Simulator {
 
 	public void setAction(String action){
 		util.agent.state = Agent.STARTING;
+		
+		if(action.equals(""))return;
 		
 		if(action.contains("STOP")){
 				util.agent.velx=0;
