@@ -1,7 +1,9 @@
 package controllers;
 
 import java.awt.image.BufferedImage;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 
 import javax.imageio.ImageIO;
 
@@ -58,6 +60,9 @@ public class Controller {
 	@FXML
 	public void onKeyEvent (KeyEvent event)throws Exception{
 		util.agent.state = Agent.STARTING;
+		
+try{	listenToKeys();						}catch(Exception e){}
+		
 		if(event.getCode().equals(KeyCode.LEFT)){
 			if(util.agent.velx>-4){
 				util.agent.velx--;
@@ -81,6 +86,13 @@ public class Controller {
 				util.agent.vely++;
 			}
 		}
+	}
+	
+	public void listenToKeys() throws Exception{
+		BufferedWriter actionModifier = new BufferedWriter(new FileWriter(sim.actionFile, false));
+		actionModifier.flush();
+		actionModifier.write("EVENT");
+		actionModifier.close();
 	}
 	
 	@FXML

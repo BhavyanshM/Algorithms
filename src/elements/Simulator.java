@@ -1,13 +1,10 @@
 package elements;
 import java.awt.image.BufferedImage;
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
@@ -18,8 +15,8 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.WritableImage;
-import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 
 public class Simulator {
 	public ArrayList<Node> G;
@@ -32,8 +29,8 @@ public class Simulator {
 	public Thread click;
 	public BufferedReader actionIn;
 	public BufferedWriter rewardOut;
-	File actionFile;
-	File rewardFile;
+	public File actionFile;
+	public File rewardFile;
 	String actionString;
 	
 	public Simulator(Canvas can, Utility u) throws Exception{
@@ -70,7 +67,8 @@ public class Simulator {
 
 	        	drawBoundary(gc);
 	        	drawStaticObstacles();
-	        	drawMovingObstalces();	        	
+	        	drawMovingObstalces();	 
+	        	drawAgent(Color.BLACK);
 	        	
 //        		if(time%2==0){
         	try{	actionString = getActionString();	} catch (Exception e1) {}
@@ -80,7 +78,7 @@ public class Simulator {
         			reward = eval(agent);
         	try{	outputReward();						}catch(Exception e){}
 //		        	if(time%10==0){
-		        		clickImage(p++);
+//		        		clickImage(p++);
 //		        	}
 		        	if(time==100000)time=0;
 //        		}		
@@ -114,10 +112,13 @@ public class Simulator {
 		for(Obstacle obs : util.mobs){
     		obs = move(obs); 
     		gc.setFill(Color.CHOCOLATE);
-    		gc.fillOval(obs.getX(), obs.getY(), obs.getRadius(), obs.getRadius());
-    		gc.setFill(Color.BLACK);
-    		gc.fillOval(util.agent.getX(), util.agent.getY(), 10, 10);	        		   			
+    		gc.fillOval(obs.getX(), obs.getY(), obs.getRadius(), obs.getRadius());    		        		   			
     	}	
+	}
+	
+	public void drawAgent(Paint p){
+		gc.setFill(p);
+		gc.fillOval(util.agent.getX(), util.agent.getY(), 10, 10);	
 	}
 	
 	public void drawStaticObstacles(){
@@ -176,6 +177,7 @@ public class Simulator {
 				result = -1;
 //				if(result<0)result = 0;
 //				System.out.println("InsideObstacleBoundary");
+				drawAgent(Color.WHITE);
 				break;				
 			}			
 		}
@@ -190,6 +192,7 @@ public class Simulator {
 				result = -1;
 //				if(result<0)result = 0;
 //				System.out.println("InsideObstacleBoundary");
+				drawAgent(Color.WHITE);
 				break;				
 			}
 		}
@@ -228,7 +231,7 @@ public class Simulator {
 	public void setAction(String action){
 		util.agent.state = Agent.STARTING;
 		
-		if(action.equals(""))return;
+		if(action.contains("EVENT"))return;
 		
 		if(action.contains("STOP")){
 				util.agent.velx=0;
