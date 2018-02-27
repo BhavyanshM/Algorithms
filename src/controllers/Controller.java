@@ -47,14 +47,10 @@ public class Controller {
 		BorderPane pane = (BorderPane)(runButton.getParent().getParent().getParent());
 		pane.setCenter(canvas);
 		gc = canvas.getGraphicsContext2D();
-		System.out.println("Trying to plan");
+		
 		plan = new Plan(gc, util);	
-//		Thread build = new Thread(() ->{
-			plan.RRT();
-//			try{Thread.sleep(10);}catch(Exception e){}
-//		});
-//		
-//		build.start();
+		plan.RRT();
+
 	}
 	
 	@FXML

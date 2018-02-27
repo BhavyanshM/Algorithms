@@ -7,7 +7,7 @@ import javafx.scene.control.Label;
 
 public class Utility {
 	
-	public static final int SIZE = 10000;
+	public static final int SIZE = 20000;
 	
 	public static final int DIM_X = 640;
 	public static final int DIM_Y = 480;
@@ -16,7 +16,7 @@ public class Utility {
 	public static final int DIST = 20;
 	public static final int FIN_X = DIM_X;
 	public static final int FIN_Y = DIM_Y;
-	public static final int MARGIN = 30;
+	public static final int GOAL_MARGIN = 30;
 	
 	public ArrayList<Obstacle> obs;
 	public ArrayList<Obstacle> mobs;
@@ -44,10 +44,10 @@ public class Utility {
 		obs.add(new Obstacle(270, 160, 150));
 		obs.add(new Obstacle(150, 300, 100));
 		obs.add(new Obstacle(330, 360, 100));
-		obs.add(new Obstacle(410, 30, 200));
+		obs.add(new Obstacle(410, 30, 100));
 		
 		
-		//X-coordinate, Y-coordinate, Radius, VelX, VelY
+		//X-coordinate, Y-coordinate, Diameter, VelX, VelY
 		mobs.add(new Obstacle(400, 150, 120, r(-4,8), r(-4,8)));
 		mobs.add(new Obstacle(180, 320, 150, r(-4,8), r(-4,8)));
 		mobs.add(new Obstacle(150, 150, 110, r(-4,8), r(-4,8)));
