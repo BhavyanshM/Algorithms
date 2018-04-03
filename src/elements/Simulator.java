@@ -77,9 +77,9 @@ public class Simulator {
         			agent = act(agent);
         			reward = eval(agent);
         	try{	outputReward();						}catch(Exception e){}
-//		        	if(time%10==0){
-//		        		clickImage(p++);
-//		        	}
+		        	if(time%10==0){
+		        		clickImage(p++);
+		        	}
 		        	if(time==100000)time=0;
 //        		}		
 	        }

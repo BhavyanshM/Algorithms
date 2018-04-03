@@ -7,8 +7,8 @@ import javafx.scene.control.Label;
 
 public class Utility {
 	
-	public static final int SIZE = 20000;
-	
+	public static final int SIZE = 10000;
+//	public static final double baseGPSX = 
 	public static final int DIM_X = 640;
 	public static final int DIM_Y = 480;
 	public static final int INIT_X = 0;

@@ -21,12 +21,14 @@ public class Plan {
 	
 	public GraphicsContext gc;
 	public Utility util;
+	public Mission mission;
 	
 	public Plan(GraphicsContext gc, Utility util){
 		this.gc = gc;
 		this.util = util;
 		G = new ArrayList<Node>();
 		good = true;
+		mission = new Mission();
 	}
 	
 	public void RRT(){
@@ -87,7 +89,6 @@ public class Plan {
           		done = true;
 //          		break;
           	}
-          	System.out.println(good + " : " + i);
           	good = true;
 //          }
     	  }
@@ -106,7 +107,6 @@ public class Plan {
 	public boolean checkObstacleAvoidance(Line2D line, boolean good){
 		for(Obstacle o : util.obs){     		
       		if(line.ptSegDist(new Point2D.Double(o.x+o.radius/2, o.y+o.radius/2)) <= ((double)o.radius)/2){
-      			System.out.println(line.ptSegDist(new Point2D.Double(o.x, o.y)) + " <= " + (double)o.radius/2);
       			good = false;
       		}
       	}
